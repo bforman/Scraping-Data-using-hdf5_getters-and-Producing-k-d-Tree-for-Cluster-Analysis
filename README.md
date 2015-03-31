@@ -11,7 +11,7 @@ To use the KDTree function along with the functions associated with it you will 
 - scipy.spatial
 
 #Example of Producing k-d tree
-"""
+```
 def produce_KDTree():
         W = np.zeros((200, 2))
         tracks = getTrackData('MillionSongSubset')
@@ -27,7 +27,7 @@ def produce_KDTree():
         a = np.array(W.tolist())
         tree = spatial.KDTree(a, 10)
         nearest = tree.query([1,20], k=5)
-"""
+```
 
 #Code Explanation
 Although there are 10,000 songs in the MSD subset, and therefore 10,000 vectors in the tracks list, I was only able to populate the map W with lat/long pairs from 200 tracks because of the recursion depth being exceeded when trying to populate W with all 10,000 songs. This serves as the reason for why W is a 200 x 2 matrix as opposed to a 10,000 x 2 matrix. For several of the songs within the 10,000 song subset of the MSD there were "nan" values for the latitude and/or longitude, so before placing a value in an index of W I had to first check to see whether each value was "nan" or not. A value that is "nan" would produce an error in creating the k-d tree. If the value was not "nan" then it would be placed in the respective index of W, otherwise a 0 would be filled in its place. Once W was populated, it needed to be converted into a list to be passed to the KDTree function of spatial. Then the K-d tree was successfully produced, and was enabled to be queried for nearest neighbor searches. My nearest neighbor search is still being fine-tuned to efficiently peform the task I desire to accomplish but this example displays the general syntax of how you would query the tree. There are other specifiers that can be included in the query call to calibrate the search. 
