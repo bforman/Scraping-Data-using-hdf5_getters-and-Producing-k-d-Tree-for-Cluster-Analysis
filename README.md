@@ -15,7 +15,6 @@ To use the KDTree function along with the functions associated with it you will 
 def produce_KDTree():
         W = np.zeros((200, 2))
         tracks = getTrackData('MillionSongSubset')
-        itr = 0
         for i in range(0, 200):
                 if math.isnan(tracks[i][2]) != True or math.isnan(tracks[i][3]) != True:
                         W[i][0] = tracks[i][2]
@@ -23,7 +22,6 @@ def produce_KDTree():
                 else:
                         W[i][0] = 0
                         W[i][1] = 0
-                itr += 1
         a = np.array(W.tolist())
         tree = spatial.KDTree(a, 10)
         nearest = tree.query([1,20], k=5)
